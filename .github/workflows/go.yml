@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -19,13 +19,3 @@ jobs:
 
     - name: Test
       run: go test -v ./...
-    
-    - name: Build (windows)
-      run: go build -o dist/drivehash.win.x64.exe cmd/drivehash/drivehash.go
-      env:
-        GOOS: windows 
-
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2.2.2
-      with:
-        path: dist/*
