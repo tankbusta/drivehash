@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: ['windows', 'darwin', 'macos']
+        platform: ['windows', 'darwin', 'linux']
     steps:
       - uses: actions/checkout@v2
 
@@ -22,7 +22,8 @@ jobs:
       - name: Build (${{ matrix.platform }})
         run: go build -o dist/drivehash.${{ matrix.platform }}.x64.bin cmd/drivehash/drivehash.go
         env:
-          GOOS: windows
+          GOOS: ${{ matrix.platform }}
+          GOARCH: amd64
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.2
